@@ -1,0 +1,49 @@
+name: Sync Triad formula
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-triad-formula
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download latest published formula
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_REPOSITORY: nocell/triad-harness
+        run: |
+          release_tag="$(gh api "repos/$SOURCE_REPOSITORY/releases/latest" --jq .tag_name)"
+          test -n "$release_tag"
+          destination="$RUNNER_TEMP/triad-release"
+          mkdir -p "$destination" Formula
+          gh release download "$release_tag" --repo "$SOURCE_REPOSITORY" --pattern triad.rb --dir "$destination"
+          install -m 0644 "$destination/triad.rb" Formula/triad.rb
+          echo "release_tag=$release_tag" >> "$GITHUB_ENV"
+      - name: Validate formula and binary
+        run: |
+          ruby -c Formula/triad.rb
+          brew audit --strict --online Formula/triad.rb
+          brew install --formula Formula/triad.rb
+          triad --version
+      - name: Publish formula update
+        run: |
+          if git diff --quiet -- Formula/triad.rb; then
+            echo "Formula is already current"
+            exit 0
+          fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add Formula/triad.rb
+          git commit -m "triad ${release_tag}"
+          git push
