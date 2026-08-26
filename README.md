@@ -1,6 +1,6 @@
 # Homebrew tap for Triad
 
-Install the latest published Triad release on macOS:
+Install the latest published Triad release on macOS or Linux:
 
 ```bash
 brew install nocell/tap/triad
