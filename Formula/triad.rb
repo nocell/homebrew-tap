@@ -5,25 +5,25 @@ class Triad < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/nocell/triad-harness/releases/download/v0.1.0/triad-v0.1.0-darwin-arm64.tar.gz"
-      sha256 "4bc70b4dd89052eba0f9238d3e3377c6361b580404fa25c1b2ddc2814321a8d1"
+      url "https://github.com/nocell/triad-harness/releases/download/v0.1.2/triad-v0.1.2-darwin-arm64.tar.gz"
+      sha256 "1a6a71dc635c0c57364e4103fdefb33f2c936fbc6dfdcf2d2fbbac004bfcd4ce"
     end
 
     on_intel do
-      url "https://github.com/nocell/triad-harness/releases/download/v0.1.0/triad-v0.1.0-darwin-x64.tar.gz"
-      sha256 "f53a70a07d4bfa159179346ec348b6041e4d06b09efa012f95268c2ef7cd3148"
+      url "https://github.com/nocell/triad-harness/releases/download/v0.1.2/triad-v0.1.2-darwin-x64.tar.gz"
+      sha256 "34e4478d480cb302e001b4f40c67730d1fe9c70324d78b1ab56fe8e8fd22d71d"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/nocell/triad-harness/releases/download/v0.1.0/triad-v0.1.0-linux-arm64.tar.gz"
-      sha256 "97e0be87bc7541f3fae945e140092d1952e945387c67a417b7d65060c768d2fe"
+      url "https://github.com/nocell/triad-harness/releases/download/v0.1.2/triad-v0.1.2-linux-arm64.tar.gz"
+      sha256 "07ba68e37ed5b1e20143322f306c15d17f67d428ac322c6320e2a3da7ff48843"
     end
 
     on_intel do
-      url "https://github.com/nocell/triad-harness/releases/download/v0.1.0/triad-v0.1.0-linux-x64.tar.gz"
-      sha256 "14ce9c21a1c47cc25ab954e793b6ec086ac7ff1d59fae85d4b4a30947517c834"
+      url "https://github.com/nocell/triad-harness/releases/download/v0.1.2/triad-v0.1.2-linux-x64.tar.gz"
+      sha256 "63ab9dcca5ae0b826cd17f44a94bcf10db8dd3d3b053a7ef884190c0600af30b"
     end
   end
 
