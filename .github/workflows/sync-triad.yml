@@ -33,17 +33,21 @@ jobs:
       - name: Validate formula and binary
         run: |
           ruby -c Formula/triad.rb
-          brew audit --strict --online Formula/triad.rb
-          brew install --formula Formula/triad.rb
+          brew tap --custom-remote nocell/tap "$GITHUB_WORKSPACE"
+          tap_dir="$(brew --repository nocell/tap)"
+          mkdir -p "$tap_dir/Formula"
+          install -m 0644 Formula/triad.rb "$tap_dir/Formula/triad.rb"
+          brew audit --strict --online nocell/tap/triad
+          brew install --formula nocell/tap/triad
           triad --version
       - name: Publish formula update
         run: |
-          if git diff --quiet -- Formula/triad.rb; then
+          git add Formula/triad.rb
+          if git diff --cached --quiet -- Formula/triad.rb; then
             echo "Formula is already current"
             exit 0
           fi
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add Formula/triad.rb
           git commit -m "triad ${release_tag}"
           git push
